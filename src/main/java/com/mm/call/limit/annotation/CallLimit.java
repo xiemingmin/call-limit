@@ -1,4 +1,4 @@
-package com.mm.call.limit.annotates;
+package com.mm.call.limit.annotation;
 
 import com.mm.call.limit.enums.LimitTypeEnum;
 

@@ -20,10 +20,11 @@ public class CallLimitServiceImpl implements CallLimitService {
     private ConcurrentHashMap<String, Cache<String, Integer>> cacheMap = new ConcurrentHashMap();
 
     @Override
-    public boolean allowCall(String userKey, LimitTypeEnum type, long time, TimeUnit timeUnit) {
+    public boolean allowCall(String methodFlag, String userKey, LimitTypeEnum type, long time, TimeUnit timeUnit) {
+        String cacheKey = methodFlag + userKey;
         if (type == LimitTypeEnum.One_machine){
             Cache<String, Integer> cache = getCache(time, timeUnit);
-            int callTime = cache.getIfPresent(userKey);
+            int callTime = cache.getIfPresent(cacheKey);
             if (callTime > 0){
                 return false;
             } else {
