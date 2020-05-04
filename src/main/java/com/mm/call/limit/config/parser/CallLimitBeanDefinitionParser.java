@@ -1,5 +1,6 @@
 package com.mm.call.limit.config.parser;
 
+import com.mm.call.limit.handler.CallLimitAnnotationHandler;
 import com.mm.call.limit.service.impl.CallLimitServiceImpl;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractSingleBeanDefinitionParser;
@@ -17,9 +18,11 @@ public class CallLimitBeanDefinitionParser extends AbstractSingleBeanDefinitionP
         return CallLimitServiceImpl.class;
     }
 
-    protected void doParse(Element element, BeanDefinitionBuilder bean) {
+    protected void doParse(Element element, BeanDefinitionBuilder beanBuilder) {
         String redisUrl = element.getAttribute("redisUrl");
-        bean.addPropertyValue("redisUrl", redisUrl);
+        beanBuilder.addPropertyValue("redisUrl", redisUrl);
+//        BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.rootBeanDefinition(CallLimitAnnotationHandler.class);
+//        beanDefinitionBuilder.getBeanDefinition();
     }
 
 }

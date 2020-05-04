@@ -34,12 +34,21 @@ public class CallLimitAnnotationHandler {
     public void doBefore(JoinPoint joinPoint, CallLimit callLimit) {
         // 获取方法签名
         String methodName = joinPoint.getSignature().getName().toString();
+        // 获取限制类型
         LimitTypeEnum type = callLimit.type();
+        // 获取限制单位时间
         long time = callLimit.time();
+        // 获取时间单位
         TimeUnit timeUnit = callLimit.timeUnit();
+        // 获取异常信息
         Class<? extends Throwable> clazz = callLimit.onLimitException();
 
-        String userKey = userInfoSupport.currentUserKey();
+        String userKey = null;
+        try {
+            userKey = userInfoSupport.currentUserKey();
+        } catch (Exception e) {
+            logger.error("com.mm.call.limit.intf.UserInfoSupport.currentUserKey 获取当前用户信息失败！", e);
+        }
         if (null == userKey) {
             throw new IllegalArgumentException("无法获取当前用户信息，请实现com.mm.call.limit.intf.UserInfoSupport接口");
         }
