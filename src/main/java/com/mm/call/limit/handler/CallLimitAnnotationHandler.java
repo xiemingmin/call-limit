@@ -32,15 +32,20 @@ public class CallLimitAnnotationHandler {
 
     @Before("@annotation(callLimit)")
     public void doBefore(JoinPoint joinPoint, CallLimit callLimit) {
+        // 获取方法签名
         String methodName = joinPoint.getSignature().getName().toString();
         LimitTypeEnum type = callLimit.type();
         long time = callLimit.time();
         TimeUnit timeUnit = callLimit.timeUnit();
         Class<? extends Throwable> clazz = callLimit.onLimitException();
 
+        String userKey = userInfoSupport.currentUserKey();
+        if (null == userKey) {
+            throw new IllegalArgumentException("无法获取当前用户信息，请实现com.mm.call.limit.intf.UserInfoSupport接口");
+        }
         boolean isAllow = callLimitService.allowCall(methodName, userInfoSupport.currentUserKey(), type, time, timeUnit);
 
-        if (isAllow){
+        if (isAllow) {
             try {
                 throw clazz.getConstructor(String.class).newInstance("Call is restricted. Please try again later!");
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
