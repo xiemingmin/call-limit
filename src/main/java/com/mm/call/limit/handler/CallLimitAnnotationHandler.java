@@ -31,7 +31,7 @@ public class CallLimitAnnotationHandler {
 
 
     @Before("@annotation(callLimit)")
-    public void doBefore(JoinPoint joinPoint, CallLimit callLimit) {
+    public void doBefore(JoinPoint joinPoint, CallLimit callLimit) throws Throwable{
         // 获取方法签名
         String methodName = joinPoint.getSignature().getName().toString();
         // 获取限制类型
