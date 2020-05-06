@@ -54,7 +54,7 @@ public class CallLimitAnnotationHandler {
         }
         boolean isAllow = callLimitService.allowCall(methodName, userInfoSupport.currentUserKey(), type, time, timeUnit);
 
-        if (isAllow) {
+        if (!isAllow) {
             try {
                 throw clazz.getConstructor(String.class).newInstance("Call is restricted. Please try again later!");
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {

@@ -40,11 +40,11 @@ public class CallLimitServiceImpl implements CallLimitService, ApplicationContex
         String cacheKey = methodFlag + userKey;
         if (type == LimitTypeEnum.One_machine) {
             Cache<String, Integer> cache = getCache(time, timeUnit);
-            int callTime = cache.getIfPresent(cacheKey);
-            if (callTime > 0) {
+            Integer callTime = cache.getIfPresent(cacheKey);
+            if (callTime != null && callTime > 0) {
                 return false;
             } else {
-                cache.put(userKey, 1);
+                cache.put(cacheKey, 1);
             }
         }
         return true;
@@ -82,5 +82,13 @@ public class CallLimitServiceImpl implements CallLimitService, ApplicationContex
         GenericBeanDefinition beanDefinition = (GenericBeanDefinition) beanDefinitionBuilder.getBeanDefinition();
         beanDefinition.setAutowireMode(GenericBeanDefinition.AUTOWIRE_BY_NAME);
         ((DefaultListableBeanFactory) configurableApplicationContext.getBeanFactory()).registerBeanDefinition("callLimitAnnotationHandler", beanDefinition);
+    }
+
+    public String getRedisUrl() {
+        return redisUrl;
+    }
+
+    public void setRedisUrl(String redisUrl) {
+        this.redisUrl = redisUrl;
     }
 }
