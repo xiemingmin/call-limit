@@ -1,6 +1,6 @@
-package com.mm.call.limit.service;
+package top.xiemingmin.call.limit.service;
 
-import com.mm.call.limit.enums.LimitTypeEnum;
+import top.xiemingmin.call.limit.enums.LimitTypeEnum;
 
 import java.util.concurrent.TimeUnit;
 

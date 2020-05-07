@@ -1,6 +1,6 @@
-package com.mm.call.limit.annotation;
+package top.xiemingmin.call.limit.annotation;
 
-import com.mm.call.limit.enums.LimitTypeEnum;
+import top.xiemingmin.call.limit.enums.LimitTypeEnum;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;

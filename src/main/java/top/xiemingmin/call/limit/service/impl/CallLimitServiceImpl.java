@@ -1,10 +1,10 @@
-package com.mm.call.limit.service.impl;
+package top.xiemingmin.call.limit.service.impl;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.mm.call.limit.enums.LimitTypeEnum;
-import com.mm.call.limit.handler.CallLimitAnnotationHandler;
-import com.mm.call.limit.service.CallLimitService;
+import top.xiemingmin.call.limit.enums.LimitTypeEnum;
+import top.xiemingmin.call.limit.handler.CallLimitAnnotationHandler;
+import top.xiemingmin.call.limit.service.CallLimitService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -52,7 +52,7 @@ public class CallLimitServiceImpl implements CallLimitService, ApplicationContex
 
 
     /**
-     * 一时间为key创建不同的guavaCache
+     * 以时间为key创建不同的guavaCache
      *
      * @param time
      * @param timeUnit

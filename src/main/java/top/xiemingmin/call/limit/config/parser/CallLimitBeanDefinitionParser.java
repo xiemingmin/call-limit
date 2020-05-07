@@ -1,6 +1,6 @@
-package com.mm.call.limit.config.parser;
+package top.xiemingmin.call.limit.config.parser;
 
-import com.mm.call.limit.service.impl.CallLimitServiceImpl;
+import top.xiemingmin.call.limit.service.impl.CallLimitServiceImpl;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractSingleBeanDefinitionParser;

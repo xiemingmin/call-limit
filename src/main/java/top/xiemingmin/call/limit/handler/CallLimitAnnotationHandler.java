@@ -1,9 +1,9 @@
-package com.mm.call.limit.handler;
+package top.xiemingmin.call.limit.handler;
 
-import com.mm.call.limit.annotation.CallLimit;
-import com.mm.call.limit.enums.LimitTypeEnum;
-import com.mm.call.limit.intf.UserInfoSupport;
-import com.mm.call.limit.service.CallLimitService;
+import top.xiemingmin.call.limit.annotation.CallLimit;
+import top.xiemingmin.call.limit.enums.LimitTypeEnum;
+import top.xiemingmin.call.limit.intf.UserInfoSupport;
+import top.xiemingmin.call.limit.service.CallLimitService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -47,10 +47,10 @@ public class CallLimitAnnotationHandler {
         try {
             userKey = userInfoSupport.currentUserKey();
         } catch (Exception e) {
-            logger.error("com.mm.call.limit.intf.UserInfoSupport.currentUserKey 获取当前用户信息失败！", e);
+            logger.error("UserInfoSupport.currentUserKey 获取当前用户信息失败！", e);
         }
         if (null == userKey) {
-            throw new IllegalArgumentException("无法获取当前用户信息，请实现com.mm.call.limit.intf.UserInfoSupport接口");
+            throw new IllegalArgumentException("无法获取当前用户信息，请实现com.xiemingmin.call.limit.intf.UserInfoSupport接口");
         }
         boolean isAllow = callLimitService.allowCall(methodName, userInfoSupport.currentUserKey(), type, time, timeUnit);
 

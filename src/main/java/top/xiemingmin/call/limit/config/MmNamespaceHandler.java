@@ -1,6 +1,6 @@
-package com.mm.call.limit.config;
+package top.xiemingmin.call.limit.config;
 
-import com.mm.call.limit.config.parser.CallLimitBeanDefinitionParser;
+import top.xiemingmin.call.limit.config.parser.CallLimitBeanDefinitionParser;
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 /**
