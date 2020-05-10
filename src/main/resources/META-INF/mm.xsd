@@ -11,9 +11,19 @@
         <xsd:complexType>
             <xsd:complexContent>
                 <xsd:extension base="beans:identifiedType">
-                    <xsd:attribute name="redisUrl" type="xsd:string">
+                    <xsd:attribute name="redisServeIp" type="xsd:string">
                         <xsd:annotation>
-                            <xsd:documentation><![CDATA[redis链接url]]></xsd:documentation>
+                            <xsd:documentation><![CDATA[redis服务ip]]></xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    <xsd:attribute name="redisServePort" type="xsd:int">
+                        <xsd:annotation>
+                            <xsd:documentation><![CDATA[redis服务端口]]></xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:attribute>
+                    <xsd:attribute name="authPwd" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation><![CDATA[redis鉴权密码]]></xsd:documentation>
                         </xsd:annotation>
                     </xsd:attribute>
                 </xsd:extension>

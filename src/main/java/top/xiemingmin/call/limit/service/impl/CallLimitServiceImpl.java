@@ -2,6 +2,7 @@ package top.xiemingmin.call.limit.service.impl;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import top.xiemingmin.call.limit.client.RedisClient;
 import top.xiemingmin.call.limit.enums.LimitTypeEnum;
 import top.xiemingmin.call.limit.handler.CallLimitAnnotationHandler;
 import top.xiemingmin.call.limit.service.CallLimitService;
@@ -24,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class CallLimitServiceImpl implements CallLimitService, ApplicationContextAware, InitializingBean {
 
-    private String redisUrl;
+    private RedisClient redisClient;
 
     private ConcurrentHashMap<String, Cache<String, Integer>> cacheMap = new ConcurrentHashMap();
 
@@ -45,6 +46,13 @@ public class CallLimitServiceImpl implements CallLimitService, ApplicationContex
                 return false;
             } else {
                 cache.put(cacheKey, 1);
+            }
+        } else if (type == LimitTypeEnum.Distributed) {
+            String value = redisClient.get(cacheKey);
+            if (value != null && value != "" && Integer.valueOf(value) > 0) {
+                return false;
+            } else {
+                return redisClient.setNx(cacheKey, String.valueOf(1), time, timeUnit);
             }
         }
         return true;
@@ -84,11 +92,7 @@ public class CallLimitServiceImpl implements CallLimitService, ApplicationContex
         ((DefaultListableBeanFactory) configurableApplicationContext.getBeanFactory()).registerBeanDefinition("callLimitAnnotationHandler", beanDefinition);
     }
 
-    public String getRedisUrl() {
-        return redisUrl;
-    }
-
-    public void setRedisUrl(String redisUrl) {
-        this.redisUrl = redisUrl;
+    public void setRedisClient(RedisClient redisClient) {
+        this.redisClient = redisClient;
     }
 }
