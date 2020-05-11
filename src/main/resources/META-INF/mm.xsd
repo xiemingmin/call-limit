@@ -3,27 +3,24 @@
 <xsd:schema xmlns="http://www.xiemingmin.top/schema/mm"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:beans="http://www.springframework.org/schema/beans"
+            xmlns:tool="http://www.springframework.org/schema/tool"
             targetNamespace="http://www.xiemingmin.top/schema/mm"
-            elementFormDefault="qualified">
+            elementFormDefault="qualified" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd">
 
     <xsd:import namespace="http://www.springframework.org/schema/beans"/>
     <xsd:element name="callLimit">
         <xsd:complexType>
             <xsd:complexContent>
                 <xsd:extension base="beans:identifiedType">
-                    <xsd:attribute name="redisServeIp" type="xsd:string">
+                    <xsd:attribute name="jedisPool-ref" type="xsd:string">
                         <xsd:annotation>
-                            <xsd:documentation><![CDATA[redis服务ip]]></xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:attribute>
-                    <xsd:attribute name="redisServePort" type="xsd:int">
-                        <xsd:annotation>
-                            <xsd:documentation><![CDATA[redis服务端口]]></xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:attribute>
-                    <xsd:attribute name="authPwd" type="xsd:string">
-                        <xsd:annotation>
-                            <xsd:documentation><![CDATA[redis鉴权密码]]></xsd:documentation>
+                            <xsd:documentation><![CDATA[jedisPool spring bean instance id]]></xsd:documentation>
+                            <xsd:appinfo>
+                                <tool:annotation kind="ref">
+                                    <tool:expected-type type="redis.clients.jedis.JedisPool"/>
+                                </tool:annotation>
+                            </xsd:appinfo>
                         </xsd:annotation>
                     </xsd:attribute>
                 </xsd:extension>

@@ -2,6 +2,7 @@ package top.xiemingmin.call.limit.config.parser;
 
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.beans.factory.xml.BeanDefinitionParser;
 import org.springframework.beans.factory.xml.ParserContext;
@@ -21,13 +22,10 @@ public class CallLimitBeanDefinitionParser implements BeanDefinitionParser {
         // 向spring容器中初始化RedisClientImpl
         RootBeanDefinition redisClientBeanDefinition = new RootBeanDefinition(RedisClientImpl.class);
         redisClientBeanDefinition.setAutowireMode(AutowireCapableBeanFactory.AUTOWIRE_BY_NAME);
-        String redisServeIp = element.getAttribute("redisServeIp");
-        redisClientBeanDefinition.getPropertyValues().addPropertyValue("redisServeIp", redisServeIp);
-        String redisServePort = element.getAttribute("redisServePort");
-        redisClientBeanDefinition.getPropertyValues().addPropertyValue("redisServePort", redisServePort);
-        String authPwd = element.getAttribute("authPwd");
-        redisClientBeanDefinition.getPropertyValues().addPropertyValue("auth", authPwd);
-        parserContext.getRegistry().registerBeanDefinition("redisClientImpl", redisClientBeanDefinition);
+        String jedisPoolRef = element.getAttribute("jedisPool-ref");
+        redisClientBeanDefinition.getPropertyValues().addPropertyValue("jedisPool", new RuntimeBeanReference(jedisPoolRef));
+        // 属性注入是会做一次初始化，所以此处不需要向容器中注册
+//        parserContext.getRegistry().registerBeanDefinition("redisClientImpl", redisClientBeanDefinition);
         // 向spring容器中初始化CallLimitServiceImpl
         RootBeanDefinition beanDefinition = new RootBeanDefinition();
         beanDefinition.setBeanClass(CallLimitServiceImpl.class);

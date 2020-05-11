@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.params.SetParams;
 import top.xiemingmin.call.limit.client.RedisClient;
 
@@ -13,35 +12,19 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @Auther: xiemingmin
- * @Description:
+ * @Description: redis client
  * @Date: 2020/5/10 23:24
  */
 public class RedisClientImpl implements RedisClient {
 
     private static final Logger logger = LoggerFactory.getLogger(RedisClientImpl.class);
 
-    private String redisServeIp;
-
-    private Integer redisServePort;
-
-    private String auth;
-
     private JedisPool jedisPool;
 
     @PostConstruct
-    public void initRedisPool() {
-        JedisPoolConfig config = new JedisPoolConfig();
-        // 与redis连接池连接的最大连接数
-        config.setMaxTotal(500);
-        // 在jedis连接池中最大的idle状态（空闲的）的jedis实例的个数
-        config.setMaxIdle(300);
-        // 在jedis连接池中最小的idle状态（空闲的）的jedis实例的个数
-        config.setMinIdle(50);
-        // 在borrow一个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的
-        config.setTestOnBorrow(true);
-        jedisPool = new JedisPool(config, redisServeIp, redisServePort, 10000, auth);
-        if (logger.isDebugEnabled()) {
-            logger.debug("RedisClientImpl#initRedisPool redis连接池创建成功---> redisServeIp:{}, redisServePort:{}, auth:{}", redisServeIp, redisServePort, auth);
+    public void initCache(){
+        if (logger.isDebugEnabled()){
+            logger.debug("RedisClientImpl#initCache 初始化redisClient成功！");
         }
     }
 
@@ -89,15 +72,7 @@ public class RedisClientImpl implements RedisClient {
         }
     }
 
-    public void setRedisServeIp(String redisServeIp) {
-        this.redisServeIp = redisServeIp;
-    }
-
-    public void setRedisServePort(Integer redisServePort) {
-        this.redisServePort = redisServePort;
-    }
-
-    public void setAuth(String auth) {
-        this.auth = auth;
+    public void setJedisPool(JedisPool jedisPool) {
+        this.jedisPool = jedisPool;
     }
 }
