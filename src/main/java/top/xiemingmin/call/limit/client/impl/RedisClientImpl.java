@@ -58,7 +58,7 @@ public class RedisClientImpl implements RedisClient {
             }
             return resource;
         }
-        throw new RuntimeException("RedisClientImpl#getJedis获取jedis实例失败！");
+        throw new RuntimeException("RedisClientImpl#getJedis jedisPool实例为空！");
     }
 
     @Override
