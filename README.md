@@ -17,4 +17,7 @@ call-limit提供接口限流、放刷的功能，插件基于spring开发，在�
 
 ### 用法
 
+1. 在项目中添加插件maven依赖
+2. 在spring xml配置中配置相关的bean
+
 

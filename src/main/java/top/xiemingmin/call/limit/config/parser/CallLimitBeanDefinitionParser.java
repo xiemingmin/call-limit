@@ -19,18 +19,20 @@ public class CallLimitBeanDefinitionParser implements BeanDefinitionParser {
 
     @Override
     public BeanDefinition parse(Element element, ParserContext parserContext) {
-        // 向spring容器中初始化RedisClientImpl
-        RootBeanDefinition redisClientBeanDefinition = new RootBeanDefinition(RedisClientImpl.class);
-        redisClientBeanDefinition.setAutowireMode(AutowireCapableBeanFactory.AUTOWIRE_BY_NAME);
         String jedisPoolRef = element.getAttribute("jedisPool-ref");
-        redisClientBeanDefinition.getPropertyValues().addPropertyValue("jedisPool", new RuntimeBeanReference(jedisPoolRef));
-        // 属性注入是会做一次初始化，所以此处不需要向容器中注册
-//        parserContext.getRegistry().registerBeanDefinition("redisClientImpl", redisClientBeanDefinition);
         // 向spring容器中初始化CallLimitServiceImpl
         RootBeanDefinition beanDefinition = new RootBeanDefinition();
         beanDefinition.setBeanClass(CallLimitServiceImpl.class);
-        redisClientBeanDefinition.setAutowireMode(AutowireCapableBeanFactory.AUTOWIRE_BY_NAME);
-        beanDefinition.getPropertyValues().addPropertyValue("redisClient", redisClientBeanDefinition);
+        beanDefinition.setAutowireMode(AutowireCapableBeanFactory.AUTOWIRE_BY_NAME);
+        if (jedisPoolRef != null && jedisPoolRef != ""){
+            // 向spring容器中初始化RedisClientImpl
+            RootBeanDefinition redisClientBeanDefinition = new RootBeanDefinition(RedisClientImpl.class);
+            redisClientBeanDefinition.setAutowireMode(AutowireCapableBeanFactory.AUTOWIRE_BY_NAME);
+            redisClientBeanDefinition.getPropertyValues().addPropertyValue("jedisPool", new RuntimeBeanReference(jedisPoolRef));
+            // 属性注入是会做一次初始化，所以此处不需要向容器中注册
+//        parserContext.getRegistry().registerBeanDefinition("redisClientImpl", redisClientBeanDefinition);
+            beanDefinition.getPropertyValues().addPropertyValue("redisClient", redisClientBeanDefinition);
+        }
         parserContext.getRegistry().registerBeanDefinition("callLimitServiceImpl", beanDefinition);
 
         return beanDefinition;

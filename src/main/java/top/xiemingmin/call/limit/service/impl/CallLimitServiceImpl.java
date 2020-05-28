@@ -48,6 +48,9 @@ public class CallLimitServiceImpl implements CallLimitService, ApplicationContex
                 cache.put(cacheKey, 1);
             }
         } else if (type == LimitTypeEnum.Distributed) {
+            if (redisClient == null){
+                throw new RuntimeException("---使用分布式限流请配置jedisPool！");
+            }
             String value = redisClient.get(cacheKey);
             if (value != null && value != "" && Integer.valueOf(value) > 0) {
                 return false;
