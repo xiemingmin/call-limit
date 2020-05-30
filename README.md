@@ -73,6 +73,8 @@ call-limit提供接口限流、放刷的功能，插件基于spring开发，在�
 3.实现用户信息接口（`top.xiemingmin.call.limit.intf.UserInfoSupport`）
 
 返回每个请求线程的用户唯一标识，可使用请求的客户端ip，插件中会调用次接口判断是否同一用户的请求。
+
+ps：可将用户信息放入ThreadLocal在此方法中直接取值
 ```java
 package com.xiemingmin.service;
 
@@ -107,7 +109,7 @@ public List<PersonDo> getPerson(@PathVariable String name){
 ### 效果
 
 第一次调用（成功）
-![调用成功](https://img-blog.csdnimg.cn/20200529013139321.png)
+![调用成功](https://img-blog.csdnimg.cn/20200529232358107.png)
 
 第二次调用（被限制）
 ![被限制](https://img-blog.csdnimg.cn/20200529013540174.png)
