@@ -1,9 +1,9 @@
-## 接口限流插件
+# java轻量级接口限流/防刷插件
 
 ### 简介
-call-limit提供接口限流、放刷的功能，插件基于spring开发，在应用应用的任何一个逻辑层皆可使用（web、service、dao），
+call-limit提供接口限流、防刷的功能，插件基于spring开发，在应用应用的任何一个逻辑层皆可使用（web、service、dao），
 插件支持单机应用下的限流和分布式应用的限流（分布式应用限流需要依赖redis），在简单业务场景下插件可为大家提供轻量
-无逻辑侵入的限流、放刷的支持。
+无逻辑侵入的限流、防刷的支持。
 
 ### maven坐标
 
@@ -101,7 +101,7 @@ public class UserInfoServiceImpl implements UserInfoSupport {
 ```
 @GetMapping("/getPerson/{name}")
 @CallLimit(time = 30, timeUnit = TimeUnit.SECONDS)
-public List<PersonDo> getPerson(@PathVariable String name){
+public Result<List<PersonDo>> getPerson(@PathVariable String name){
     return personService.findPersonByName(name);
 }
 ```
