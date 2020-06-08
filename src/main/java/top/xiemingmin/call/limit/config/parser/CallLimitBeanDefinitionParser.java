@@ -11,9 +11,13 @@ import top.xiemingmin.call.limit.client.impl.RedisClientImpl;
 import top.xiemingmin.call.limit.service.impl.CallLimitServiceImpl;
 
 /**
- * @Auther: xiemingmin
- * @Description: callLimit beanDefinitionParser
- * @Date: 2020/5/4 22:44
+ * *******************************************************************************************
+ * ***            X I E M I N G M I N . T O P  ---  U N C L E  G E O R G E                 ***
+ * *******************************************************************************************
+ *
+ * @author xiemingmin
+ * Date: 2020/4/29 22:09
+ * Description: 接口防刷工具
  */
 public class CallLimitBeanDefinitionParser implements BeanDefinitionParser {
 

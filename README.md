@@ -30,7 +30,8 @@ call-limit提供接口限流、防刷的功能，插件基于spring开发，在�
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.xiemingmin.top/schema/mm
        http://www.xiemingmin.top/schema/mm.xsd">
-
+    
+    <!-- 配置限流插件 -->
     <mm:callLimit/>
 </beans>
 ```
@@ -95,7 +96,7 @@ public class UserInfoServiceImpl implements UserInfoSupport {
 
 - time：单位时间内值允许调用1次
 - timeUnit：时间单位
-
+- onLimitException: 触发限流抛出的异常
 如下配置表示30秒内值允许调用一次
 
 ```
